@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  pg-db:
+    container_name: postgres-db
+    image: postgis/postgis:15-3.3-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: trail-track-r
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+  pg-admin:
+    container_name: pgAdmin4
+    image: dpage/pgadmin4:latest
+    restart: on-failure
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - ./infra/pgadmin/servers.json:/pgadmin4/servers.json:ro
+    ports:
+      - 8080:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@trail-track-r.com
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      # Application log level - one of:
+      #   CRITICAL 50
+      #   ERROR    40
+      #   WARNING  30
+      #   SQL      25
+      #   INFO     20
+      #   DEBUG    10
+      #   NOTSET    0
+      PGADMIN_CONFIG_CONSOLE_LOG_LEVEL: 30
+
+volumes:
+  postgres-data:
+  pgadmin-data:

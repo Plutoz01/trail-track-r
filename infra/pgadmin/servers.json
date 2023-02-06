@@ -1,0 +1,14 @@
+{
+    "Servers": {
+      "1": {
+        "Name": "TrailTrackR",
+        "Group": "Local docker",
+        "Port": 5432,
+        "Username": "postgres",
+        "Host": "pg-db",
+        "SSLMode": "prefer",
+        "MaintenanceDB": "trail-track-r",
+        "Shared": true
+      }
+    }
+  }
