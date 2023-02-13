@@ -17,8 +17,8 @@ export class TrailController {
       id: trail.id,
       name: trail.name,
       orgId: 'TODO: need to implement', // TODO
-      description: trail.description,
-      externalUrl: trail.externalUrl
+      description: 'TODO',
+      externalUrl: 'TODO'
     }
   }
 }

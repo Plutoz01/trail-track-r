@@ -1,0 +1,8 @@
+<p>user-progress works!</p>
+
+<h1>Available trails:</h1>
+<ul>
+    <li *ngFor="let trail of trails$ | async">
+        {{trail.name}}
+    </li>
+</ul>

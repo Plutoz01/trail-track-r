@@ -9,7 +9,7 @@ import { ApiBaseService } from './api-base.service';
 export class TrailApiService extends ApiBaseService {
   private readonly apiPath = `${this.apiBasePath}/trails`;
 
-  getAll(): Observable<TrailDto[]> {
+  getAll$(): Observable<TrailDto[]> {
     return this.http.get<TrailDto[]>(this.apiPath);
   }
 }

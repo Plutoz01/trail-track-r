@@ -9,7 +9,7 @@ import { ApiBaseService } from './api-base.service';
 export class TrailSegmentApiService extends ApiBaseService {
   private readonly apiPath = `${this.apiBasePath}/trail-segments`;
 
-  getAll(): Observable<TrailSegmentDto[]> {
+  getAll$(): Observable<TrailSegmentDto[]> {
     return this.http.get<TrailSegmentCollectionDto>(this.apiPath).pipe(
       map(collectionDto => collectionDto.features)
     );
