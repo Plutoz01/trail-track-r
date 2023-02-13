@@ -1,7 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
-import { Feature, FeatureCollection, LineString } from 'geojson';
 import { TrailSegment } from '../entities';
 import { TrailSegmentService } from '../services/trail-segment.service';
+import {
+  TrailSegmentDto,
+  TrailSegmentCollectionDto
+} from '@trail-track-r/api-contract/trail'
 
 @Controller('trail-segments')
 export class TrailSegmentController {
@@ -9,26 +12,27 @@ export class TrailSegmentController {
 
     // TODO: Pagination support
     @Get()
-    async getTrailSegments(): Promise<FeatureCollection<LineString>> {
+    async getTrailSegments(): Promise<TrailSegmentCollectionDto> {
       const segments = await this.trailSegmentService.findAll();
-      return TrailSegmentController.toGeoJsonFeatureCollection(segments);
+      return TrailSegmentController.toCollectionDto(segments);
     }
 
-    private static toGeoJsonFeature(segment: TrailSegment): Feature<LineString> {
+    private static toDto(segment: TrailSegment): TrailSegmentDto {
       return {
         type: 'Feature',
         id: segment.id,
         geometry: segment.path,
         properties: {
-          name: segment.name
+          name: segment.name,
+          groupId: 'TODO' // TODO
         }
       }
     }
 
-    private static toGeoJsonFeatureCollection(segments: TrailSegment[]): FeatureCollection<LineString> {
+    private static toCollectionDto(segments: TrailSegment[]): TrailSegmentCollectionDto {
       return {
         type: 'FeatureCollection',
-        features: segments.map(TrailSegmentController.toGeoJsonFeature)
+        features: segments.map(TrailSegmentController.toDto)
       };
     }
 }

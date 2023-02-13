@@ -8,4 +8,14 @@ export class Trail extends BaseEntity {
     unique: true,
   })
   name: string;
+
+  @Column({
+    nullable: true
+  })
+  description?: string;
+  
+  @Column({
+    nullable: true
+  })
+  externalUrl?: string;
 }
