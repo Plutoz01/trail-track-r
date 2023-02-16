@@ -4,6 +4,7 @@ export interface TrailDto {
     id: string;
     orgId: string;
     name: string;
+    length: number;
     description?: string;
     externalUrl?: string;
 }
@@ -19,6 +20,7 @@ export interface TrailSegmentGroupDto {
 interface TrailSegmentProperties {
     name: string;
     groupId: string;
+    length: number;
     description?: string;
     externalUrl?: string;
 }
@@ -26,3 +28,9 @@ interface TrailSegmentProperties {
 export type TrailSegmentDto = Feature<LineString, TrailSegmentProperties>;
 
 export type TrailSegmentCollectionDto = FeatureCollection<LineString, TrailSegmentProperties>;
+
+// TODO: consider to move another lib
+export interface UserTrailProgressDto {
+    userId: string;
+    trailSegmentId: string;
+  }

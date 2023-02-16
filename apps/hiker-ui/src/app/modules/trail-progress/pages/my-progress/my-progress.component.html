@@ -1,0 +1,23 @@
+<div class="flex flex-column gap-4">
+    <p-card>
+        <ng-template pTemplate="header">
+            <div class="flex justify-content-between p-3">
+                <h3 class="mt-1 mb-1">Active trails progress</h3>
+                <button type="button" pButton label="Add" class="p-button-secondary p-button-text" icon="pi pi-plus"
+                    iconPos="left"></button>
+            </div>
+        </ng-template>
+
+        <ttrh-trail-progress-list [progress]="progress"></ttrh-trail-progress-list>        
+    </p-card>
+
+    <p-card>
+        <ng-template pTemplate="header">
+            <div class="flex justify-content-between p-3">
+                <h3 class="mt-1 mb-1">Completed trails</h3>
+            </div>
+        </ng-template>
+
+        TBD
+    </p-card>
+</div>

@@ -16,7 +16,13 @@
         "tsConfig": "apps/hiker-ui/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/hiker-ui/src/favicon.ico", "apps/hiker-ui/src/assets"],
-        "styles": ["apps/hiker-ui/src/styles.scss"],
+        "styles": [
+          "node_modules/primeflex/primeflex.css",
+          "node_modules/primeicons/primeicons.css",
+          "node_modules/primeng/resources/themes/saga-green/theme.css",
+          "node_modules/primeng/resources/primeng.min.css",
+          "apps/hiker-ui/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
