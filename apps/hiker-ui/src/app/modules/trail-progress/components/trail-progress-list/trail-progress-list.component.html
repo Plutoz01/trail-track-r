@@ -1,4 +1,4 @@
-<ul class="list-none">
+<ul class="list-none pl-0">
     <li *ngFor="let p of progress; last as isLast; trackBy: progressTrackByFn">
         <ttrh-trail-progress-list-item [progress]="p"></ttrh-trail-progress-list-item>        
         <p-divider *ngIf="!isLast"></p-divider>

@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { TrailDto, TrailSegmentDto, TrailSegmentGroupDto, UserTrailProgressDto } from '@trail-track-r/api-contract/trail';
 import { find, chain } from 'lodash';
+import { OverlayPanel } from 'primeng/overlaypanel';
 import { TrailProgress } from '../../trail-progress.model';
 
 
@@ -10,10 +11,13 @@ import { TrailProgress } from '../../trail-progress.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyProgressComponent {
+  @ViewChild('addTrailOverlay')
+  addTrailOverlay?: OverlayPanel;
+
   private readonly actualUserId = 'user-1';
 
   // TODO: move all of these data to state
-  readonly trails: TrailDto[] = [
+  private readonly trails: TrailDto[] = [
     {
       id: 'trail-0',
       name: 'Test trail 0',
@@ -30,7 +34,7 @@ export class MyProgressComponent {
     },
     {
       id: 'trail-2',
-      name: 'Test trail 2',
+      name: 'A test trail with a quite long title to... just for testing',
       orgId: 'org-0',
       length: 321,
       description: 'Test trail 2 description',
@@ -161,8 +165,11 @@ export class MyProgressComponent {
       };
     }, {} as { [id: TrailDto['id']]: TrailProgress })
     .values()
-    .sortBy('trailName')
+    .sortBy('name')
     .value();
+    
+  // let allow only trails has not yet been added
+  readonly trailsToAdd = this.trails.filter(trail => this.progress.every(progress => progress.id !== trail.id));
 
   private findTrail(id: string): TrailDto {
     const trail = find(this.trails, { id });
@@ -186,5 +193,10 @@ export class MyProgressComponent {
       throw `No trailSegment found by id: ${id}`;
     }
     return trailSegment;
+  }
+
+  addTrail(trailId: string): void {
+    console.log('should add trail with id: ', trailId);
+    this.addTrailOverlay?.hide();
   }
 }

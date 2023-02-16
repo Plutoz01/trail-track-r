@@ -1,10 +1,11 @@
-<div class="flex flex-column gap-4">
+<div class="my-progress flex flex-column gap-4 p-6">
     <p-card>
         <ng-template pTemplate="header">
             <div class="flex justify-content-between p-3">
                 <h3 class="mt-1 mb-1">Active trails progress</h3>
                 <button type="button" pButton label="Add" class="p-button-secondary p-button-text" icon="pi pi-plus"
-                    iconPos="left"></button>
+                    iconPos="left"
+                    (click)="addTrailOverlay.toggle($event)"></button>
             </div>
         </ng-template>
 
@@ -21,3 +22,16 @@
         TBD
     </p-card>
 </div>
+
+<p-overlayPanel #addTrailOverlay [styleClass]="'add-trail-list-overlay'">
+    <ng-template pTemplate>
+        <ul class="list-none p-0 m-0 max-w-20rem">
+            <li *ngFor="let trail of trailsToAdd" (click)="addTrail(trail.id)" class="flex align-items-center">
+                <button type="button" pButton class="p-button-text w-full">
+                    <i class="pi pi-plus"></i>
+                    <span class="ml-2 white-space-nowrap overflow-hidden text-overflow-ellipsis">{{trail.name}}</span>
+                </button>
+            </li>
+        </ul>
+    </ng-template>
+</p-overlayPanel>

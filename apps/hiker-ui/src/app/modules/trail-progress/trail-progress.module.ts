@@ -4,6 +4,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { ProgressBarModule } from 'primeng/progressbar';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 import { TrailProgressRoutingModule } from './trail-progress-routing.module';
 import { TrailProgressListComponent } from './components/trail-progress-list/trail-progress-list.component';
@@ -22,7 +23,8 @@ import { MyProgressComponent } from './pages/my-progress/my-progress.component';
     CardModule,
     ButtonModule,
     DividerModule,
-    ProgressBarModule
+    ProgressBarModule,
+    OverlayPanelModule
   ]
 })
 export class TrailProgressModule {}
