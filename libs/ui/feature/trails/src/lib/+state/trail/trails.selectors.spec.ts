@@ -37,7 +37,7 @@ describe('Trails Selectors', () => {
     });
 
     it('selectEntity() should return the selected Entity', () => {
-      const result = TrailsSelectors.selectEntity(state) as TrailDto;
+      const result = TrailsSelectors.selectSelectedTrail(state) as TrailDto;
       const selId = getTrailsId(result);
 
       expect(selId).toBe('TRAIL-BBB');

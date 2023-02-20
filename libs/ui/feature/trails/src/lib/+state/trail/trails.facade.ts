@@ -15,13 +15,13 @@ export class TrailsFacade {
    */
   loaded$ = this.store.pipe(select(TrailsSelectors.selectTrailsLoaded));
   allTrails$ = this.store.pipe(select(TrailsSelectors.selectAllTrails));
-  selectedTrails$ = this.store.pipe(select(TrailsSelectors.selectEntity));
+  selectedTrail$ = this.store.pipe(select(TrailsSelectors.selectSelectedTrail));
 
   /**
    * Use the initialization action to perform one
    * or more tasks in your Effects.
    */
-  init() {
+  init(): void {
     this.store.dispatch(TrailsActions.initTrails());
   }
 }

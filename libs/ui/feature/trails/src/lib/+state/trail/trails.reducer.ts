@@ -9,7 +9,7 @@ export const TRAILS_FEATURE_KEY = 'trails';
 export interface TrailsState extends EntityState<TrailDto> {
   selectedId?: string | number; // which Trails record has been selected
   loaded: boolean; // has the Trails list been loaded
-  error?: string | null; // last known error (if any)
+  error?: unknown;
 }
 
 export interface TrailsPartialState {

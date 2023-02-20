@@ -9,7 +9,7 @@
             </div>
         </ng-template>
 
-        <ttrh-trail-progress-list [progress]="progress"></ttrh-trail-progress-list>        
+        <ttrh-trail-progress-list [progress]="progress"></ttrh-trail-progress-list>
     </p-card>
 
     <p-card>
@@ -26,7 +26,7 @@
 <p-overlayPanel #addTrailOverlay [styleClass]="'add-trail-list-overlay'">
     <ng-template pTemplate>
         <ul class="list-none p-0 m-0 max-w-20rem">
-            <li *ngFor="let trail of trailsToAdd" (click)="addTrail(trail.id)" class="flex align-items-center">
+            <li *ngFor="let trail of trailsToAdd$ | async" (click)="addTrail(trail.id)" class="flex align-items-center">
                 <button type="button" pButton class="p-button-text w-full">
                     <i class="pi pi-plus"></i>
                     <span class="ml-2 white-space-nowrap overflow-hidden text-overflow-ellipsis">{{trail.name}}</span>

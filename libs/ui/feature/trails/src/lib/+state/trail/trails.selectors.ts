@@ -14,8 +14,8 @@ export const selectAllTrails = createSelector(selectTrailsState, (state: TrailsS
 
 export const selectTrailsEntities = createSelector(selectTrailsState, (state: TrailsState) => selectEntities(state));
 
-export const selectSelectedId = createSelector(selectTrailsState, (state: TrailsState) => state.selectedId);
+export const selectSelectedTrailId = createSelector(selectTrailsState, (state: TrailsState) => state.selectedId);
 
-export const selectEntity = createSelector(selectTrailsEntities, selectSelectedId, (entities, selectedId) =>
+export const selectSelectedTrail = createSelector(selectTrailsEntities, selectSelectedTrailId, (entities, selectedId) =>
   selectedId ? entities[selectedId] : undefined
 );

@@ -6,6 +6,7 @@ import { DividerModule } from 'primeng/divider';
 import { ProgressBarModule } from 'primeng/progressbar';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 
+import { TrailsModule } from '@trail-track-r/ui/feature/trails';
 import { TrailProgressRoutingModule } from './trail-progress-routing.module';
 import { TrailProgressListComponent } from './components/trail-progress-list/trail-progress-list.component';
 import { TrailProgressListItemComponent } from './components/trail-progress-list-item/trail-progress-list-item.component';
@@ -18,13 +19,14 @@ import { MyProgressComponent } from './pages/my-progress/my-progress.component';
     MyProgressComponent,
   ],
   imports: [
-    CommonModule,
-    TrailProgressRoutingModule,
-    CardModule,
-    ButtonModule,
-    DividerModule,
-    ProgressBarModule,
-    OverlayPanelModule
+      CommonModule,
+      TrailProgressRoutingModule,
+      CardModule,
+      ButtonModule,
+      DividerModule,
+      ProgressBarModule,
+      OverlayPanelModule,
+      TrailsModule
   ]
 })
 export class TrailProgressModule {}

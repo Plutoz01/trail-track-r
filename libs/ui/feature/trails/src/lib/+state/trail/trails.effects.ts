@@ -1,18 +1,17 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { TrailApiService } from '@trail-track-r/data/trail';
 import { of } from 'rxjs';
 import { switchMap, catchError, map } from 'rxjs/operators';
 
 import * as TrailsActions from './trails.actions';
 import * as TrailsFeature from './trails.reducer';
+import { TrailApiService } from '../../http/trail-api.service';
 
 
 @Injectable()
 export class TrailsEffects {
-  private actions$ = inject(Actions);
-
-  constructor(private readonly trailApiService: TrailApiService) {
+  constructor(private readonly actions$: Actions,
+              private readonly trailApiService: TrailApiService) {
   }
 
   init$ = createEffect(() =>

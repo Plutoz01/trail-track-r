@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { TrailDto, TrailSegmentDto, TrailSegmentGroupDto, UserTrailProgressDto } from '@trail-track-r/api-contract/trail';
-import { find, chain } from 'lodash';
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { map } from 'rxjs/operators';
+import { chain, find } from 'lodash';
+import { TrailDto, TrailSegmentDto, TrailSegmentGroupDto, UserTrailProgressDto } from '@trail-track-r/api-contract/trail';
+import { dummyTrailGroups, dummyTrails, dummyTrailSegments, TrailsFacade } from '@trail-track-r/ui/feature/trails';
 import { TrailProgress } from '../../trail-progress.model';
 
 
@@ -17,135 +19,23 @@ export class MyProgressComponent {
   private readonly actualUserId = 'user-1';
 
   // TODO: move all of these data to state
-  private readonly trails: TrailDto[] = [
-    {
-      id: 'trail-0',
-      name: 'Test trail 0',
-      orgId: 'org-0',
-      length: 50,
-      description: 'Best hike on Earth, ever!',
-    },
-    {
-      id: 'trail-1',
-      name: 'Test trail 1',
-      orgId: 'org-0',
-      length: 123,
-      description: 'Yet another trail',
-    },
-    {
-      id: 'trail-2',
-      name: 'A test trail with a quite long title to... just for testing',
-      orgId: 'org-0',
-      length: 321,
-      description: 'Test trail 2 description',
-    },
-  ];
-  private readonly trailGroups: TrailSegmentGroupDto[] = [
-    {
-      id: 'trail-segment-group-0-0',
-      trailId: this.trails[0].id,
-      name: 'Group 0',
-      description: 'Group 0 description',
-    },
-    {
-      id: 'trail-segment-group-0-1',
-      trailId: this.trails[0].id,
-      name: 'Group 0-1',
-      description: 'Group 0-1 description',
-    },
-
-    {
-      id: 'trail-segment-group-1-0',
-      trailId: this.trails[1].id,
-      name: 'Group 1-0',
-      description: 'Group 1-0 description',
-    },
-  ];
-  private readonly trailSegments: TrailSegmentDto[] = [
-    {
-      type: 'Feature',
-      id: 'trail-segment-0-0-0',
-      properties: {
-        groupId: this.trailGroups[0].id,
-        name: 'Segment 0-0-0',
-        length: 5,
-      },
-      geometry: {
-        type: 'LineString',
-        coordinates: [],
-      },
-    },
-    {
-      type: 'Feature',
-      id: 'trail-segment-0-0-1',
-      properties: {
-        groupId: this.trailGroups[0].id,
-        name: 'Segment 0-0-1',
-        length: 15,
-      },
-      geometry: {
-        type: 'LineString',
-        coordinates: [],
-      },
-    },
-    {
-      type: 'Feature',
-      id: 'trail-segment-0-1-0',
-      properties: {
-        groupId: this.trailGroups[1].id,
-        name: 'Segment 0-1-0',
-        length: 20,
-      },
-      geometry: {
-        type: 'LineString',
-        coordinates: [],
-      },
-    },
-    {
-      type: 'Feature',
-      id: 'trail-segment-0-1-1',
-      properties: {
-        groupId: this.trailGroups[1].id,
-        name: 'Segment 0-1-1',
-        length: 10,
-      },
-      geometry: {
-        type: 'LineString',
-        coordinates: [],
-      },
-    },
-
-    {
-      type: 'Feature',
-      id: 'trail-segment-1-0-0',
-      properties: {
-        groupId: this.trailGroups[2].id,
-        name: 'Segment 1-0-0',
-        length: 10,
-      },
-      geometry: {
-        type: 'LineString',
-        coordinates: [],
-      },
-    },
-  ];
-  private readonly userTrailprogress: UserTrailProgressDto[] = [
+  private readonly userTrailProgress: UserTrailProgressDto[] = [
     {
       userId: this.actualUserId,
-      trailSegmentId: this.trailSegments[0].id as string,
+      trailSegmentId: dummyTrailSegments[0].id as string,
     },
     {
       userId: this.actualUserId,
-      trailSegmentId: this.trailSegments[2].id as string,
+      trailSegmentId: dummyTrailSegments[2].id as string,
     },
 
     {
       userId: this.actualUserId,
-      trailSegmentId: this.trailSegments[4].id as string,
+      trailSegmentId: dummyTrailSegments[4].id as string,
     },
   ];
 
-  readonly progress: TrailProgress[] = chain(this.userTrailprogress)
+  readonly progress: TrailProgress[] = chain(this.userTrailProgress)
     .reduce((result, actual) => {
       const trailSegment = this.findTrailSegment(actual.trailSegmentId);
       const trailSegmentGroup = this.findTrailSegmentGroup(trailSegment.properties.groupId);
@@ -167,12 +57,17 @@ export class MyProgressComponent {
     .values()
     .sortBy('name')
     .value();
-    
+
   // let allow only trails has not yet been added
-  readonly trailsToAdd = this.trails.filter(trail => this.progress.every(progress => progress.id !== trail.id));
+  readonly trailsToAdd$ = this.trailsFacade.allTrails$.pipe(
+    map(trails => trails.filter(trail =>this.progress.every(progress => progress.id !== trail.id)))
+  );
+
+  constructor(private readonly trailsFacade: TrailsFacade) {
+  }
 
   private findTrail(id: string): TrailDto {
-    const trail = find(this.trails, { id });
+    const trail = find(dummyTrails, { id });
     if (!trail) {
       throw `No trail found by id: ${id}`;
     }
@@ -180,7 +75,7 @@ export class MyProgressComponent {
   }
 
   private findTrailSegmentGroup(id: string): TrailSegmentGroupDto {
-    const trailSegmentGroup = find(this.trailGroups, { id });
+    const trailSegmentGroup = find(dummyTrailGroups, { id });
     if (!trailSegmentGroup) {
       throw `No trailSegmentGroup found by id: ${id}`;
     }
@@ -188,7 +83,7 @@ export class MyProgressComponent {
   }
 
   private findTrailSegment(id: string): TrailSegmentDto {
-    const trailSegment = find(this.trailSegments, { id });
+    const trailSegment = find(dummyTrailSegments, { id });
     if (!trailSegment) {
       throw `No trailSegment found by id: ${id}`;
     }
