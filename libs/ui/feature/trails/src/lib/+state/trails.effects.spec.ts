@@ -15,7 +15,10 @@ describe('TrailsEffects', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
-      providers: [TrailsEffects, provideMockActions(() => actions), provideMockStore()],
+      providers: [
+        TrailsEffects, provideMockActions(() => actions),
+        provideMockStore()
+      ]
     });
 
     effects = TestBed.inject(TrailsEffects);

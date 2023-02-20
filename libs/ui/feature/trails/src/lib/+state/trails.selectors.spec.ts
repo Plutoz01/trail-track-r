@@ -1,29 +1,29 @@
-import { TrailsEntity } from './trails.models';
+import { TrailDto } from '@trail-track-r/api-contract/trail';
 import { trailsAdapter, TrailsPartialState, initialTrailsState } from './trails.reducer';
 import * as TrailsSelectors from './trails.selectors';
+import { createTrailDto } from './trail-dto.spec';
 
 describe('Trails Selectors', () => {
   const ERROR_MSG = 'No Error Available';
-  const getTrailsId = (it: TrailsEntity) => it.id;
-  const createTrailsEntity = (id: string, name = '') =>
-    ({
-      id,
-      name: name || `name-${id}`,
-    } as TrailsEntity);
+  const getTrailsId = (it: TrailDto) => it.id;
 
   let state: TrailsPartialState;
 
   beforeEach(() => {
     state = {
       trails: trailsAdapter.setAll(
-        [createTrailsEntity('PRODUCT-AAA'), createTrailsEntity('PRODUCT-BBB'), createTrailsEntity('PRODUCT-CCC')],
+        [
+          createTrailDto('TRAIL-AAA'),
+          createTrailDto('TRAIL-BBB'),
+          createTrailDto('TRAIL-CCC')
+        ],
         {
           ...initialTrailsState,
           selectedId: 'PRODUCT-BBB',
           error: ERROR_MSG,
-          loaded: true,
+          loaded: true
         }
-      ),
+      )
     };
   });
 
@@ -33,14 +33,14 @@ describe('Trails Selectors', () => {
       const selId = getTrailsId(results[1]);
 
       expect(results.length).toBe(3);
-      expect(selId).toBe('PRODUCT-BBB');
+      expect(selId).toBe('TRAIL-BBB');
     });
 
     it('selectEntity() should return the selected Entity', () => {
-      const result = TrailsSelectors.selectEntity(state) as TrailsEntity;
+      const result = TrailsSelectors.selectEntity(state) as TrailDto;
       const selId = getTrailsId(result);
 
-      expect(selId).toBe('PRODUCT-BBB');
+      expect(selId).toBe('TRAIL-BBB');
     });
 
     it('selectTrailsLoaded() should return the current "loaded" status', () => {

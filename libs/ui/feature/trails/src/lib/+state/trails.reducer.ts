@@ -1,12 +1,12 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
+import { TrailDto } from '@trail-track-r/api-contract/trail';
 
 import * as TrailsActions from './trails.actions';
-import { TrailsEntity } from './trails.models';
 
 export const TRAILS_FEATURE_KEY = 'trails';
 
-export interface TrailsState extends EntityState<TrailsEntity> {
+export interface TrailsState extends EntityState<TrailDto> {
   selectedId?: string | number; // which Trails record has been selected
   loaded: boolean; // has the Trails list been loaded
   error?: string | null; // last known error (if any)
@@ -16,11 +16,11 @@ export interface TrailsPartialState {
   readonly [TRAILS_FEATURE_KEY]: TrailsState;
 }
 
-export const trailsAdapter: EntityAdapter<TrailsEntity> = createEntityAdapter<TrailsEntity>();
+export const trailsAdapter: EntityAdapter<TrailDto> = createEntityAdapter<TrailDto>();
 
 export const initialTrailsState: TrailsState = trailsAdapter.getInitialState({
   // set initial required properties
-  loaded: false,
+  loaded: false
 });
 
 const reducer = createReducer(

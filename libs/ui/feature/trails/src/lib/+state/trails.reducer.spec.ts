@@ -1,18 +1,16 @@
 import { Action } from '@ngrx/store';
 
 import * as TrailsActions from './trails.actions';
-import { TrailsEntity } from './trails.models';
 import { TrailsState, initialTrailsState, trailsReducer } from './trails.reducer';
+import { createTrailDto } from './trail-dto.spec';
 
 describe('Trails Reducer', () => {
-  const createTrailsEntity = (id: string, name = ''): TrailsEntity => ({
-    id,
-    name: name || `name-${id}`,
-  });
-
   describe('valid Trails actions', () => {
     it('loadTrailsSuccess should return the list of known Trails', () => {
-      const trails = [createTrailsEntity('PRODUCT-AAA'), createTrailsEntity('PRODUCT-zzz')];
+      const trails = [
+        createTrailDto('TRAIL-AAA'),
+        createTrailDto('TRAIL-zzz')
+      ];
       const action = TrailsActions.loadTrailsSuccess({ trails });
 
       const result: TrailsState = trailsReducer(initialTrailsState, action);

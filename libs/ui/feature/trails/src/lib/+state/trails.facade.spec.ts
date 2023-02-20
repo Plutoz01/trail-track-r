@@ -7,9 +7,9 @@ import { readFirst } from '@nrwl/angular/testing';
 import * as TrailsActions from './trails.actions';
 import { TrailsEffects } from './trails.effects';
 import { TrailsFacade } from './trails.facade';
-import { TrailsEntity } from './trails.models';
 import { TRAILS_FEATURE_KEY, TrailsState, initialTrailsState, trailsReducer } from './trails.reducer';
 import * as TrailsSelectors from './trails.selectors';
+import { createTrailDto } from './trail-dto.spec';
 
 interface TestSchema {
   trails: TrailsState;
@@ -18,23 +18,28 @@ interface TestSchema {
 describe('TrailsFacade', () => {
   let facade: TrailsFacade;
   let store: Store<TestSchema>;
-  const createTrailsEntity = (id: string, name = ''): TrailsEntity => ({
-    id,
-    name: name || `name-${id}`,
-  });
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
-        imports: [StoreModule.forFeature(TRAILS_FEATURE_KEY, trailsReducer), EffectsModule.forFeature([TrailsEffects])],
-        providers: [TrailsFacade],
+        imports: [
+          StoreModule.forFeature(TRAILS_FEATURE_KEY, trailsReducer),
+          EffectsModule.forFeature([TrailsEffects])
+        ],
+        providers: [TrailsFacade]
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule {
+      }
 
       @NgModule({
-        imports: [StoreModule.forRoot({}), EffectsModule.forRoot([]), CustomFeatureModule],
+        imports: [
+          StoreModule.forRoot({}),
+          EffectsModule.forRoot([]), CustomFeatureModule
+        ]
       })
-      class RootModule {}
+      class RootModule {
+      }
+
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -70,11 +75,12 @@ describe('TrailsFacade', () => {
       expect(list.length).toBe(0);
       expect(isLoaded).toBe(false);
 
-      store.dispatch(
-        TrailsActions.loadTrailsSuccess({
-          trails: [createTrailsEntity('AAA'), createTrailsEntity('BBB')],
-        })
-      );
+      store.dispatch(TrailsActions.loadTrailsSuccess({
+        trails: [
+          createTrailDto('AAA'),
+          createTrailDto('BBB')
+        ]
+      }));
 
       list = await readFirst(facade.allTrails$);
       isLoaded = await readFirst(facade.loaded$);
