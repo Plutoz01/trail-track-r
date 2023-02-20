@@ -1,9 +1,9 @@
 {
-  "name": "data-trail",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "ui-feature-trails",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/data/trail/src",
-  "prefix": "ttr-data-trail",
+  "sourceRoot": "libs/ui/feature/trails/src",
+  "prefix": "trail-track-r",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
@@ -11,7 +11,7 @@
         "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "libs/data/trail/jest.config.ts",
+        "jestConfig": "libs/ui/feature/trails/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -28,8 +28,8 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "libs/data/trail/**/*.ts",
-          "libs/data/trail/**/*.html"
+          "libs/ui/feature/trails/**/*.ts",
+          "libs/ui/feature/trails/**/*.html"
         ]
       }
     }
