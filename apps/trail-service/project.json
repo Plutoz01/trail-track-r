@@ -14,7 +14,8 @@
         "main": "apps/trail-service/src/main.ts",
         "tsConfig": "apps/trail-service/tsconfig.app.json",
         "assets": ["apps/trail-service/src/assets"],
-        "webpackConfig": "apps/trail-service/webpack.config.js"
+        "webpackConfig": "apps/trail-service/webpack.config.js",
+        "babelUpwardRootMode": true
       },
       "configurations": {
         "production": {
