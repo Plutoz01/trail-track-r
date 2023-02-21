@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'ui-feature-trails',
+  displayName: 'ui/feature/trails',
   preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {

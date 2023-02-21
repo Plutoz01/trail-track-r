@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'api-contract-trail',
+  displayName: 'api-contract/trail',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {

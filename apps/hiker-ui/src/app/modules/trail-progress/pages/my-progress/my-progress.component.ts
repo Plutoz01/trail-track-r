@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { map } from 'rxjs/operators';
 import { chain, find } from 'lodash';
-import { TrailDto, TrailSegmentDto, TrailSegmentGroupDto, UserTrailProgressDto } from '@trail-track-r/api-contract/trail';
+import { TrailDto, TrailSegmentDto, TrailSegmentGroupDto, TrailProgressDto } from '@trail-track-r/api-contract/trail';
 import { dummyTrailGroups, dummyTrails, dummyTrailSegments, TrailsFacade } from '@trail-track-r/ui/feature/trails';
 import { TrailProgress } from '../../trail-progress.model';
 
@@ -19,7 +19,7 @@ export class MyProgressComponent {
   private readonly actualUserId = 'user-1';
 
   // TODO: move all of these data to state
-  private readonly userTrailProgress: UserTrailProgressDto[] = [
+  private readonly userTrailProgress: TrailProgressDto[] = [
     {
       userId: this.actualUserId,
       trailSegmentId: dummyTrailSegments[0].id as string,
