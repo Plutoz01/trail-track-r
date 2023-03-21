@@ -17,6 +17,7 @@ export class TrailController {
       id: trail.id,
       name: trail.name,
       orgId: 'TODO: need to implement', // TODO
+      length: 0, // TODO
       description: 'TODO',
       externalUrl: 'TODO'
     }

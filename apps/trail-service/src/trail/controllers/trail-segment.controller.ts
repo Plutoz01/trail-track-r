@@ -24,6 +24,7 @@ export class TrailSegmentController {
         geometry: segment.path,
         properties: {
           name: segment.name,
+          length: 0, // TODO
           groupId: 'TODO' // TODO
         }
       }
