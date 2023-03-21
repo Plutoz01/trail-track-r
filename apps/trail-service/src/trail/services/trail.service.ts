@@ -13,4 +13,8 @@ export class TrailService {
   async findAll(): Promise<Trail[]> {
     return this.repository.find();
   }
+
+  async findById(id: string): Promise<Trail | null> {
+    return this.repository.findOneBy({ id });
+  }
 }
