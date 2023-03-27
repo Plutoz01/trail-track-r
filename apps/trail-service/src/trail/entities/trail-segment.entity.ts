@@ -3,6 +3,11 @@ import { LineString } from 'geojson';
 import { BaseEntity } from './base.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { TrailSegmentGroup } from './trail-segment-group.entity';
+import { CommonProperties } from './common-properties';
+
+@ObjectType()
+class TrailSegmentProperties extends CommonProperties {
+}
 
 @Entity({ name: 'trail_segment' })
 @ObjectType()
@@ -33,4 +38,8 @@ export class TrailSegment extends BaseEntity {
   @JoinColumn({ name: 'trail_segment_group_id' })
   @Field(() => TrailSegmentGroup, { nullable: false })
   segmentGroup: TrailSegmentGroup;
+
+  @Column('jsonb')
+  @Field(() => TrailSegmentProperties, { nullable: true })
+  properties: TrailSegmentProperties;
 }

@@ -3,6 +3,11 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity } from './base.entity';
 import { Trail } from './trail.entity';
 import { TrailSegment } from './trail-segment.entity';
+import { CommonProperties } from './common-properties';
+
+@ObjectType()
+class TrailSegmentGroupProperties extends CommonProperties {
+}
 
 @Entity({ name: 'trail_segment_group' })
 @ObjectType()
@@ -13,14 +18,6 @@ export class TrailSegmentGroup extends BaseEntity {
   })
   @Field({ nullable: false })
   name: string;
-
-  // @Column()
-  // @Field({ nullable: true })
-  // description?: string;
-  //
-  // @Column()
-  // @Field({ nullable: true })
-  // length?: number;
 
   @ManyToOne(
     () => Trail,
@@ -36,4 +33,8 @@ export class TrailSegmentGroup extends BaseEntity {
   @OneToMany(() => TrailSegment, segment => segment.segmentGroup)
   @Field(() => [TrailSegment], { nullable: false })
   segments: TrailSegment[];
+
+  @Column('jsonb')
+  @Field(() => TrailSegmentGroupProperties, { nullable: true })
+  properties: TrailSegmentGroupProperties;
 }
