@@ -1,16 +1,19 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TrailService } from './services/trail.service';
 import entities from './entities';
-import { TrailSegmentService } from './services/trail-segment.service';
-import { TrailResolver } from './resolvers/trail.resolver';
+import { TrailResolver, TrailSegmentGroupResolver } from './resolvers';
+import { TrailSegmentGroupService, TrailSegmentService, TrailService } from './services';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([...entities])],
+  imports: [
+    TypeOrmModule.forFeature([...entities])
+  ],
   providers: [
     TrailService,
+    TrailSegmentGroupService,
     TrailSegmentService,
-    TrailResolver
+    TrailResolver,
+    TrailSegmentGroupResolver
   ]
 })
 export class TrailModule {
