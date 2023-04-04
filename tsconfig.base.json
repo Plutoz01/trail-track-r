@@ -14,10 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@trail-track-r/api-contract/trail": ["libs/api-contract/trail/src/index.ts"],
-      "@trail-track-r/ui/feature/trails": ["libs/ui/feature/trails/src/index.ts"]
-    }
+    "paths": {}
   },
   "exclude": ["node_modules", "tmp"]
 }
