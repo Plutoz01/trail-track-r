@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyProgressComponent } from './my-progress.component';
+import { TrailListComponent } from './trail-list.component';
 
-describe('MyProgressComponent', () => {
-  let component: MyProgressComponent;
-  let fixture: ComponentFixture<MyProgressComponent>;
+describe('TrailListComponent', () => {
+  let component: TrailListComponent;
+  let fixture: ComponentFixture<TrailListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MyProgressComponent],
+      declarations: [TrailListComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MyProgressComponent);
+    fixture = TestBed.createComponent(TrailListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

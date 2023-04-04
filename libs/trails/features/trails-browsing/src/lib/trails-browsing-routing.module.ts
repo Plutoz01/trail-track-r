@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MyProgressComponent } from './pages/my-progress/my-progress.component';
+import { TrailListComponent } from './trail-list/trail-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MyProgressComponent
+    component: TrailListComponent
   }
 ];
 
@@ -13,4 +13,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TrailProgressRoutingModule { }
+export class TrailsBrowsingRoutingModule {
+}

@@ -10,11 +10,13 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@trail-track-r/trails/features/trails-browsing": ["libs/trails/features/trails-browsing/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
