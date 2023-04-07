@@ -1,9 +1,13 @@
-<ul class="list-none" *ngIf="isLoading; else loadingTpl">
-  <ng-container *ngFor="let trail of trails; last as isLast; trackBy: trailTrackByFn">
-    <ttr-trail-list-item [trail]="trail"></ttr-trail-list-item>
-    <p-divider *ngIf="!isLast"></p-divider>
-  </ng-container>
-</ul>
+<ng-container *ngIf="!isLoading; else loadingTpl">
+  <ul class="list-none">
+    <ng-container *ngFor="let trail of trails; last as isLast; trackBy: trailTrackByFn">
+      <ttr-trail-list-item [trail]="trail"></ttr-trail-list-item>
+      <p-divider *ngIf="!isLast"></p-divider>
+    </ng-container>
+  </ul>
+
+  <div *ngIf="trails?.length === 0">No trails to show</div>
+</ng-container>
 
 <ng-template #loadingTpl>
   <p-progressSpinner></p-progressSpinner>
