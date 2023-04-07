@@ -24,7 +24,7 @@ import { TrailModule } from './trail/trail.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: true,
-      autoSchemaFile: './dist/generated/graphql/trail-service-schema.gql'
+      autoSchemaFile: './.generated/graphql/trail-service-schema.gql'
     }),
     TrailModule
   ]
