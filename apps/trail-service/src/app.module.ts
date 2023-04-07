@@ -1,8 +1,9 @@
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 import { TrailModule } from './trail/trail.module';
 
 @Module({
@@ -26,7 +27,8 @@ import { TrailModule } from './trail/trail.module';
       playground: true,
       autoSchemaFile: './.generated/graphql/trail-service-schema.gql'
     }),
-    TrailModule
+    TrailModule,
+    AuthModule
   ]
 })
 export class AppModule {}
