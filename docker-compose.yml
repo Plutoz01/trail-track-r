@@ -26,6 +26,20 @@ services:
     depends_on:
       - pg-db
 
+  flyway-okt-import:
+    container_name: flyway-okt-import
+    image: flyway/flyway:9-alpine
+    volumes:
+      - ./infra/flyway/okt-import:/flyway/sql:ro
+    command: migrate
+    environment:
+      FLYWAY_URL: jdbc:postgresql://pg-db/trail-track-r
+      FLYWAY_USER: flyway
+      FLYWAY_PASSWORD: ${FLYWAY_PASSWORD}
+      FLYWAY_DEFAULT_SCHEMA: okt-import
+    depends_on:
+      - pg-db
+
   pg-admin:
     container_name: pgAdmin4
     image: dpage/pgadmin4:latest

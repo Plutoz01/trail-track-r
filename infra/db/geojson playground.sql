@@ -1,73 +1,27 @@
--- Get all POIs of a given Segment by id as a FeatureCollection;
+-- DROP TABLE IF EXISTS okt.merged_point;
 
-WITH consts (segment_id) AS (
-   values ('496b93c1-887f-408d-9de4-fe4b53db2b80'::uuid)
-)
-SELECT jsonb_build_object(
-	'type', 'FeatureCollection',
-	'features', jsonb_agg(
-		jsonb_build_object(
-			'type', 'Feature',
-			'id', p.id,
-			'geometry', st_asGeoJson(p.location)::jsonb,
-			'properties', json_build_object(
-				'name', p.name,
-				'relationType', pr.relation_type
-			)
-		)
-	)
-) AS pois_of_segment
-FROM consts,
-	trail_segment_poi_relation pr
-LEFT JOIN poi p ON pr.poi_id = p.id
-WHERE pr.trail_segment_id = segment_id;
-
--- Get all POI Points of a given Segment by id as rows of MultiPoint grouped by relation type
-
-WITH consts (segment_id) AS (
-   values ('496b93c1-887f-408d-9de4-fe4b53db2b80'::uuid)
-)
-SELECT pr.trail_segment_id,
-	relation_type,
-	-- COUNT(pr.poi_id),
-	-- ARRAY_AGG(pr.poi_id) AS poi_ids,
-	ST_Collect(ARRAY_AGG(p.location)) AS locations
-FROM consts,
-	trail_segment_poi_relation pr
-LEFT JOIN poi p ON pr.poi_id = p.id
-WHERE pr.trail_segment_id = segment_id
-GROUP BY pr.trail_segment_id, pr.relation_type;
-  
-
---- Should split line for each linestring
-
-WITH data AS (SELECT
-  'LINESTRING(0 10, 10 10, 20 15)'::geometry AS line,
-  ARRAY[
-	  'MULTIPOINT(3 20, 2 0)'::geometry,
-	  'MULTIPOINT(7 10)'::geometry
-  ] AS points
-)
-
-SELECT
-	ST_AsText(segment) AS segment,
-	ST_AsText(ST_ClosestPoint(segment, ST_Centroid(points[1]))) AS closest,
-	ST_Distance(segment, ST_Centroid(points[1]))
-FROM (
-	SELECT 
-		--ST_AsText(ST_Centroid(point)) AS centroid,
-		--ST_AsText(ST_ClosestPoint(line, ST_Centroid(point))) AS nearest_point,
-		--ST_AsText(ST_Split(line, ST_ClosestPoint(line, ST_Centroid(point)))) AS splitted,
-		/*ST_AsText(
-			ST_Centroid(
-				unnest(points)
-			)
-		),*/
-		(ST_DumpSegments(line)).geom as segment	
-	FROM data
-) q1, data
-
-/*SELECT ST_AsText(ST_Split(line, point)) AS no_split,
-       ST_AsText(ST_Split( ST_Snap(line, point, ), point)) AS split
-       FROM data;
-	   */
+SELECT DISTINCT
+	first_value(checkpoint_group) OVER w1 AS checkpoint_group,
+	first_value(p.name) OVER w1 AS name,
+	first_value(stamp_count) OVER w1 AS stamp_count,
+	ST_MakeLine(
+		first_value(p.geom) OVER w1,
+		first_value(ST_ClosestPoint(t.geom, p.geom)) OVER w1
+	) AS diff,
+	/*first_value(p.geom) OVER w1 AS centroid_point_geom,
+	first_value(ST_ClosestPoint(t.geom, p.geom)) OVER w1 AS aligned_geom,*/
+	first_value(ST_Distance(ST_ClosestPoint(t.geom, p.geom), p.geom)) OVER w1 AS distance
+FROM
+(
+	SELECT
+		checkpoint_group,
+		ARRAY_AGG(DISTINCT name) AS name,
+		COUNT(id) AS stamp_count,
+		ST_Centroid(ST_Collect(geom)) AS geom
+	FROM okt_import.point
+	GROUP BY checkpoint_group
+) p,
+okt_import.track t
+WINDOW w1 AS
+	(PARTITION BY checkpoint_group ORDER BY ST_Distance(ST_ClosestPoint(t.geom, p.geom), p.geom))
+ORDER BY checkpoint_group;
