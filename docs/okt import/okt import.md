@@ -32,11 +32,9 @@ All checkpoints:
 [out:json][timeout:55];
 {{geocodeArea:Hungary}}->.searchArea;
 (
-  node["checkpoint"="hiking"]["course"="Országos Kéktúra"](area.searchArea);
+  node["checkpoint"="hiking"]["course"~"Országos Kéktúra"](area.searchArea);
 );
 out body;
->;
-out skel qt;
 ```
 
 Grouped segments with coordinates

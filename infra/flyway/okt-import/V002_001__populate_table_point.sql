@@ -1,9 +1,10 @@
 WITH data AS (
-SELECT '{
+SELECT '
+{
   "type": "FeatureCollection",
   "generator": "overpass-ide",
   "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
-  "timestamp": "2023-04-08T09:33:08Z",
+  "timestamp": "2023-04-08T16:47:08Z",
   "features": [
     {
       "type": "Feature",
@@ -415,6 +416,28 @@ SELECT '{
         ]
       },
       "id": "node/4320868902"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4625471038",
+        "checkpoint": "hiking",
+        "checkpoint:type": "stamp",
+        "course": "Országos Kéktúra,Dél-Dunántúli Kéktúra",
+        "description": "A kilátó alatti esőbeálló bejárati faoszlopán.",
+        "name": "Írott-kő OKTPH_01_2_DDKPH_01_2",
+        "ref:MTSZ": "OKTPH_01_DDKPH_01",
+        "source": "MTSZ",
+        "website": "http://teljesitmenyturazoktarsasaga.hu/okt_forum?a=dh&id=1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.434327,
+          47.3529533
+        ]
+      },
+      "id": "node/4625471038"
     },
     {
       "type": "Feature",
@@ -4906,6 +4929,28 @@ SELECT '{
     {
       "type": "Feature",
       "properties": {
+        "@id": "node/4899085777",
+        "checkpoint": "hiking",
+        "checkpoint:type": "stamp",
+        "course": "Országos Kéktúra,Dél-Dunántúli Kéktúra",
+        "description": "A kilátó bejárata melletti információs tábla oszlopán.",
+        "name": "Írott-kő OKTPH_01_1_DDKPH_01_1",
+        "ref:MTSZ": "OKTPH_01_DDKPH_01",
+        "source": "MTSZ",
+        "website": "http://teljesitmenyturazoktarsasaga.hu/okt_forum?a=dh&id=1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.4337943,
+          47.352807
+        ]
+      },
+      "id": "node/4899085777"
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "@id": "node/5135139078",
         "checkpoint": "hiking",
         "checkpoint:type": "stamp",
@@ -4923,28 +4968,6 @@ SELECT '{
         ]
       },
       "id": "node/5135139078"
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "@id": "node/5731123321",
-        "checkpoint": "hiking",
-        "checkpoint:type": "stamp",
-        "course": "Országos Kéktúra",
-        "description": "A kerítésen.",
-        "name": "Bódvaszilas OKTPH_125",
-        "ref:MTSZ": "OKTPH_126",
-        "source": "MTSZ",
-        "website": "http://www.teljesitmenyturazoktarsasaga.hu/okt_forum?a=dh&id=126"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          20.7378812,
-          48.5374621
-        ]
-      },
-      "id": "node/5731123321"
     },
     {
       "type": "Feature",
