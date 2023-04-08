@@ -1,0 +1,3 @@
+CREATE SCHEMA IF NOT EXISTS trails;
+
+GRANT USAGE ON SCHEMA trails TO "trail-svc";

@@ -1,16 +1,30 @@
 version: '3.9'
 services:
   pg-db:
-    container_name: postgres-db
+    container_name: pg-db
     image: postgis/postgis:15-3.3-alpine
     restart: unless-stopped
     ports:
       - 5432:5432
     volumes:
+      - ./infra/postgres/init:/docker-entrypoint-initdb.d:ro
       - postgres-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: trail-track-r
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+  flyway-trail-svc:
+    container_name: flyway-trail-svc
+    image: flyway/flyway:9-alpine
+    volumes:
+      - ./infra/flyway/trails:/flyway/sql:ro
+    command: migrate
+    environment:
+      FLYWAY_URL: jdbc:postgresql://pg-db/trail-track-r
+      FLYWAY_USER: flyway
+      FLYWAY_PASSWORD: ${FLYWAY_PASSWORD}
+      FLYWAY_DEFAULT_SCHEMA: trails
+    depends_on:
+      - pg-db
 
   pg-admin:
     container_name: pgAdmin4
@@ -21,6 +35,8 @@ services:
       - ./infra/pgadmin/servers.json:/pgadmin4/servers.json:ro
     ports:
       - 8080:80
+    depends_on:
+      - pg-db
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@trail-track-r.com
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}

@@ -18,6 +18,7 @@ import { TrailModule } from './trail/trail.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
+        schema: configService.get('DB_SCHEMA'),
         entities: [...TrailModule.entities()],
       }),
       inject: [ConfigService],
