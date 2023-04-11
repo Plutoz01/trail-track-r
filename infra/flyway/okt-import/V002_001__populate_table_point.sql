@@ -5064,7 +5064,7 @@ SELECT
 	ref,
 	url,
 	description,
-	((REGEXP_MATCHES(ref, '^OKTPH_(\d{2,3}).*$'))[1])::int AS checkpoint_group,
+	(REGEXP_MATCHES(ref, '^OKTPH_(\d{2,3}(_(A|B))?).*$'))[1] AS checkpoint_group,
 	properties,
 	geom
 

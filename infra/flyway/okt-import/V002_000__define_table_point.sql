@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS okt_import.point
 	ref TEXT,
 	url TEXT,
 	description TEXT,
-	checkpoint_group INTEGER,
+	checkpoint_group TEXT NOT NULL,
 	properties JSONB,
     PRIMARY KEY (id)
 );
