@@ -40,6 +40,21 @@ services:
     depends_on:
       - pg-db
 
+  exec-okt-import:
+    container_name: exec-okt-import
+    image: postgres:alpine
+    command: psql -c "CALL okt_import.import_okt_to_trails(FALSE);"
+    environment:
+      ASD: "123"
+      PGHOST: pg-db
+      PGDATABASE: trail-track-r
+      PGUSER: postgres
+      PGPASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - pg-db
+      - flyway-trail-svc
+      - flyway-okt-import
+
   pg-admin:
     container_name: pgAdmin4
     image: dpage/pgadmin4:7.0

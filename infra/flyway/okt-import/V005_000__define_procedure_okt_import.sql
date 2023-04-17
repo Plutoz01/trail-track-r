@@ -7,6 +7,7 @@ DECLARE
 	okt_trail_id UUID;
 BEGIN
 	IF truncate_target THEN
+	  RAISE info 'truncating target tables...';
 		TRUNCATE
 			trails.trail,
 			trails.trail_segment_group,
@@ -16,6 +17,7 @@ BEGIN
 		CASCADE;
 	END IF;
 
+  RAISE info 'inserting data to "trails" schema...';
 	INSERT INTO trails.trail (name, properties)
 	VALUES (OKT_NAME, '{}'::jsonb);
 
@@ -34,6 +36,7 @@ BEGIN
 		t.geom AS path
 	FROM okt_import.track_splitted t
 	LEFT OUTER JOIN trails.trail_segment_group sg ON t.name = sg.name;
+	RAISE INFO 'import process done.';
 END
 $$;
 
