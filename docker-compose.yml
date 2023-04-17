@@ -36,13 +36,13 @@ services:
       FLYWAY_URL: jdbc:postgresql://pg-db/trail-track-r
       FLYWAY_USER: flyway
       FLYWAY_PASSWORD: ${FLYWAY_PASSWORD}
-      FLYWAY_DEFAULT_SCHEMA: okt-import
+      FLYWAY_DEFAULT_SCHEMA: okt_import
     depends_on:
       - pg-db
 
   pg-admin:
     container_name: pgAdmin4
-    image: dpage/pgadmin4:latest
+    image: dpage/pgadmin4:7.0
     restart: on-failure
     volumes:
       - pgadmin-data:/var/lib/pgadmin
