@@ -5,12 +5,11 @@ import { Trail } from '../../../models/trail.model';
 
 const GET_ALL_TRAILS = gql`
   query trails {
-    trails {
+    findAllTrail {
       id
       name
-      properties {
-        url
-      }
+      url
+      length
     }
   }
 `;
@@ -23,9 +22,9 @@ const GET_ALL_TRAILS = gql`
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrailListContainerComponent {
-  private readonly trailsQuery$ = this.apollo.watchQuery<{ trails: Trail[] }>({query: GET_ALL_TRAILS}).valueChanges;
+  private readonly trailsQuery$ = this.apollo.watchQuery<{ findAllTrail: Trail[] }>({query: GET_ALL_TRAILS}).valueChanges;
   readonly trails$ = this.trailsQuery$.pipe(
-    map(response => response.data.trails)
+    map(response => response.data.findAllTrail)
   );
   readonly isLoading$ = this.trailsQuery$.pipe(map(response => response.loading));
 

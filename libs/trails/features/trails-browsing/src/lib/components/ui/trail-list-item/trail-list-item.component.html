@@ -4,7 +4,10 @@
       Name: {{trail?.name}}
     </div>
     <div class="col">
-      URL: {{trail?.properties?.url || 'URL not provided'}}
+      Length: {{(trail?.length || 0) / 1000 | number:'1.2-2' }}
+    </div>
+    <div class="col">
+      URL: {{trail?.url || 'URL not provided'}}
     </div>
   </div>
 </li>
