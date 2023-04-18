@@ -1,5 +1,5 @@
 import { Type } from '@nestjs/common';
-import { Float, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Float, ID, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { BaseEntity } from '../entities/base.entity';
 import { CommonProperties } from '../entities/common-properties';
 import { CommonPropertiesContainer } from '../entities/common-properties-container';
@@ -17,8 +17,8 @@ export function BaseCommonPropertiesResolver<T extends BaseEntity>(classRef: Typ
       return this.crudService.findAll();
     }
 
-    @Query(() => [classRef], { name: `find${classRef.name}ById` })
-    async findById(id: T['id']): Promise<T | null> {
+    @Query(() => classRef, { name: `find${classRef.name}ById`, nullable: true })
+    async findById(@Args('id', { type: () => ID }) id: T['id']): Promise<T | null> {
       return this.crudService.findById(id);
     }
 
