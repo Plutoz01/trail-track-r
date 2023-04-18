@@ -32,7 +32,7 @@ export class TrailSegmentGroup extends BaseEntity {
 
   @OneToMany(() => TrailSegment, segment => segment.segmentGroup)
   @Field(() => [TrailSegment], { nullable: false })
-  segments: TrailSegment[];
+  segments: Promise<TrailSegment[]>;
 
   @Column('jsonb')
   @Field(() => TrailSegmentGroupProperties, { nullable: true })

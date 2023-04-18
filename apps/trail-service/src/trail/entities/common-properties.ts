@@ -6,4 +6,6 @@ export abstract class CommonProperties {
   url?: string;
   @Field({ nullable: true })
   description?: string;
+  @Field({ nullable: true })
+  length?: number;
 }

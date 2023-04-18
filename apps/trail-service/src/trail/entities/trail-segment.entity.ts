@@ -19,11 +19,12 @@ export class TrailSegment extends BaseEntity {
   @Field({ nullable: false })
   name: string;
 
+  // TODO: consider to move to a OneToOne relation to prevent fetch large amount of data unnecessarily
   @Column({
-    type: 'geography',
+    type: 'geometry',
     spatialFeatureType: 'LineString',
     srid: 4326,
-    nullable: true
+    nullable: false
   })
   path: LineString;
 

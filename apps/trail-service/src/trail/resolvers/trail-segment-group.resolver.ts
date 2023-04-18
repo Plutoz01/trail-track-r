@@ -1,16 +1,16 @@
-import { TrailSegment, TrailSegmentGroup } from '../entities';
-import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
-import { TrailSegmentService } from '../services';
+import { TrailSegmentGroup } from '../entities';
+import { Args, ID, Query, Resolver } from '@nestjs/graphql';
+import { TrailSegmentGroupService } from '../services';
 
 @Resolver(() => TrailSegmentGroup)
 export class TrailSegmentGroupResolver {
   constructor(
-    private readonly trailSegmentService: TrailSegmentService
+    private readonly trailSegmentGroupService: TrailSegmentGroupService
   ) {
   }
 
-  @ResolveField()
-  async segments(@Parent() segmentGroup: TrailSegmentGroup): Promise<TrailSegment[]> {
-    return await this.trailSegmentService.findByTrailSegmentGroupId(segmentGroup.id) || [];
+  @Query(() => TrailSegmentGroup, { nullable: true })
+  async trailSegment(@Args('id', { type: () => ID }) id: string): Promise<TrailSegmentGroup | null> {
+    return this.trailSegmentGroupService.findById(id);
   }
 }

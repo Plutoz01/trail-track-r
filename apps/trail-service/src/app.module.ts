@@ -20,6 +20,7 @@ import { TrailModule } from './trail/trail.module';
         database: configService.get('DB_NAME'),
         schema: configService.get('DB_SCHEMA'),
         entities: [...TrailModule.entities()],
+        logging: ['query']
       }),
       inject: [ConfigService],
     }),
