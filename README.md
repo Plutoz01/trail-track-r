@@ -15,3 +15,10 @@ Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and 
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
+
+
+## Trail Service GraphQL API auth (temp)
+Add the following header for requests:
+``` json
+{ "Authorization": "dummy-user" }
+```
