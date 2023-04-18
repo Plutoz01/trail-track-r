@@ -1,16 +1,13 @@
+import { Resolver } from '@nestjs/graphql';
 import { TrailSegmentGroup } from '../entities';
-import { Args, ID, Query, Resolver } from '@nestjs/graphql';
 import { TrailSegmentGroupService } from '../services';
+import { BaseCommonPropertiesResolver } from './base-common-properties.resolver';
 
 @Resolver(() => TrailSegmentGroup)
-export class TrailSegmentGroupResolver {
+export class TrailSegmentGroupResolver extends BaseCommonPropertiesResolver(TrailSegmentGroup) {
   constructor(
     private readonly trailSegmentGroupService: TrailSegmentGroupService
   ) {
-  }
-
-  @Query(() => TrailSegmentGroup, { nullable: true })
-  async trailSegment(@Args('id', { type: () => ID }) id: string): Promise<TrailSegmentGroup | null> {
-    return this.trailSegmentGroupService.findById(id);
+    super(trailSegmentGroupService)
   }
 }

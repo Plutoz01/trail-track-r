@@ -1,17 +1,16 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity } from './base.entity';
-import { Trail } from './trail.entity';
-import { TrailSegment } from './trail-segment.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { CommonProperties } from './common-properties';
+import { CommonPropertiesContainer } from './common-properties-container';
+import { TrailSegment } from './trail-segment.entity';
+import { Trail } from './trail.entity';
 
-@ObjectType()
 class TrailSegmentGroupProperties extends CommonProperties {
 }
 
 @Entity({ name: 'trail_segment_group' })
 @ObjectType()
-export class TrailSegmentGroup extends BaseEntity {
+export class TrailSegmentGroup extends CommonPropertiesContainer<TrailSegmentGroupProperties> {
   @Column({
     nullable: false,
     unique: true
@@ -35,6 +34,5 @@ export class TrailSegmentGroup extends BaseEntity {
   segments: Promise<TrailSegment[]>;
 
   @Column('jsonb')
-  @Field(() => TrailSegmentGroupProperties, { nullable: true })
   properties: TrailSegmentGroupProperties;
 }

@@ -1,16 +1,15 @@
-import { Column, Entity, OneToMany } from 'typeorm';
-import { BaseEntity } from './base.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { TrailSegmentGroup } from './trail-segment-group.entity';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { CommonProperties } from './common-properties';
+import { CommonPropertiesContainer } from './common-properties-container';
+import { TrailSegmentGroup } from './trail-segment-group.entity';
 
-@ObjectType()
 class TrailProperties extends CommonProperties {
 }
 
 @Entity({ name: 'trail' })
 @ObjectType()
-export class Trail extends BaseEntity {
+export class Trail extends CommonPropertiesContainer<TrailProperties> {
   @Column({
     nullable: false,
     unique: true
@@ -23,6 +22,5 @@ export class Trail extends BaseEntity {
   segmentGroups: Promise<TrailSegmentGroup[]>;
 
   @Column('jsonb')
-  @Field(() => TrailProperties, { nullable: true })
   properties: TrailProperties;
 }

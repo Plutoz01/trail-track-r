@@ -1,21 +1,13 @@
-import { Args, ID, Query, Resolver } from '@nestjs/graphql';
+import { Resolver } from '@nestjs/graphql';
 import { Trail } from '../entities';
 import { TrailService } from '../services';
+import { BaseCommonPropertiesResolver } from './base-common-properties.resolver';
 
 @Resolver(() => Trail)
-export class TrailResolver {
+export class TrailResolver extends BaseCommonPropertiesResolver(Trail) {
   constructor(
     private readonly trailService: TrailService
   ) {
-  }
-
-  @Query(() => [Trail])
-  async trails(): Promise<Trail[]> {
-    return this.trailService.findAll();
-  }
-
-  @Query(() => Trail, { nullable: true })
-  async trail(@Args('id', { type: () => ID }) id: string): Promise<Trail | null> {
-    return this.trailService.findById(id);
+    super(trailService)
   }
 }

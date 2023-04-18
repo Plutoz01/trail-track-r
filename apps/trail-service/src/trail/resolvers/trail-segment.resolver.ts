@@ -1,21 +1,19 @@
-import { Args, Float, ID, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Float, Parent, ResolveField, Resolver } from '@nestjs/graphql';
+import { LineString } from 'geojson';
 import { TrailSegment } from '../entities';
 import { TrailSegmentService } from '../services';
+import { BaseCommonPropertiesResolver } from './base-common-properties.resolver';
 
 @Resolver(() => TrailSegment)
-export class TrailSegmentResolver {
+export class TrailSegmentResolver extends BaseCommonPropertiesResolver(TrailSegment) {
   constructor(
     private readonly trailSegmentService: TrailSegmentService
   ) {
+    super(trailSegmentService);
   }
 
   @ResolveField(() => [[Float]])
-  async path(@Parent() segment: TrailSegment): Promise<number[][]> {
+  async path(@Parent() segment: TrailSegment): Promise<LineString['coordinates']> {
     return segment?.path?.coordinates || [];
-  }
-
-  @Query(() => TrailSegment, { nullable: true })
-  async trailSegment(@Args('id', { type: () => ID }) id: string): Promise<TrailSegment | null> {
-    return this.trailSegmentService.findById(id);
   }
 }
