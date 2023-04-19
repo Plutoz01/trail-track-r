@@ -1,3 +1,4 @@
 <ttr-trail-list [trails]="(trails$ | async) || []"
                 [isLoading]="(isLoading$ | async) || false"
+                (trailSelect)="onTrailSelect($event)"
 ></ttr-trail-list>

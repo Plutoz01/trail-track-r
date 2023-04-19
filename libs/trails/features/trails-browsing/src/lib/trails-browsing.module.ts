@@ -6,9 +6,14 @@ import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { DividerModule } from 'primeng/divider';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { TrailListComponent, TrailListContainerComponent, TrailListItemComponent } from './components';
+import {
+  TrailDetailsComponent,
+  TrailDetailsContainerComponent,
+  TrailListComponent,
+  TrailListContainerComponent,
+  TrailListItemComponent
+} from './components';
 import { TrailsBrowsingRoutingModule } from './trails-browsing-routing.module';
-
 
 function provideApollo(httpLink: HttpLink) {
   const authToken = 'dummy-user';
@@ -45,11 +50,11 @@ function provideApollo(httpLink: HttpLink) {
   declarations: [
     TrailListContainerComponent,
     TrailListItemComponent,
-    TrailListComponent
+    TrailListComponent,
+    TrailDetailsComponent,
+    TrailDetailsContainerComponent
   ],
-  exports: [
-    TrailListContainerComponent
-  ]
+  exports: [TrailListContainerComponent]
 })
 export class TrailsBrowsingModule {
 }

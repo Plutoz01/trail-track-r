@@ -1,0 +1,11 @@
+<a routerLink="../../">Show all trails</a>
+
+<div class="grid">
+  <div class="col">Name:</div>
+  <div class="col">{{trail?.name}}</div>
+</div>
+
+<div class="grid">
+  <div class="col">Length:</div>
+  <div class="col">{{(trail?.length || 0) / 1000 | number:'1.2-2' }}</div>
+</div>

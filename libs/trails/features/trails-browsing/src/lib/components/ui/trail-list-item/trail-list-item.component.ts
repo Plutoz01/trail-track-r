@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Trail } from '../../../models/trail.model';
 
 @Component({
@@ -10,4 +10,12 @@ import { Trail } from '../../../models/trail.model';
 export class TrailListItemComponent {
   @Input()
   trail?: Trail;
+  @Output()
+  readonly trailSelect = new EventEmitter<string>();
+
+  onTrailSelect(): void {
+    if(this.trail) {
+      this.trailSelect.emit(this.trail.id);
+    }
+  }
 }

@@ -1,7 +1,7 @@
 <ng-container *ngIf="!isLoading; else loadingTpl">
   <ul class="list-none">
     <ng-container *ngFor="let trail of trails; last as isLast; trackBy: trailTrackByFn">
-      <ttr-trail-list-item [trail]="trail"></ttr-trail-list-item>
+      <ttr-trail-list-item [trail]="trail" (trailSelect)="trailSelect.emit($event)"></ttr-trail-list-item>
       <p-divider *ngIf="!isLast"></p-divider>
     </ng-container>
   </ul>

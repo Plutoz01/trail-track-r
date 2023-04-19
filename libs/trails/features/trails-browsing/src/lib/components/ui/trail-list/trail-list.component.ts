@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, TrackByFunction } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TrackByFunction } from '@angular/core';
 import { Trail } from '../../../models/trail.model';
 
 @Component({
@@ -12,6 +12,8 @@ export class TrailListComponent {
   trails?: Trail[] = [];
   @Input()
   isLoading?: boolean = true;
+  @Output()
+  readonly trailSelect = new EventEmitter<string>();
 
   readonly trailTrackByFn: TrackByFunction<Trail> = (_, trail) => trail.id;
 }
