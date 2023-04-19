@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
+import { sortBy } from 'lodash';
 import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { Trail } from '../../../models/trail.model';
 
@@ -43,7 +44,11 @@ export class TrailDetailsContainerComponent {
     )
   );
   readonly trail$ = this.trailQuery$.pipe(
-    map(response => response.data.findTrailById)
+    map(response => response.data.findTrailById),
+    map(trail=> !trail ? undefined : ({
+      ...trail,
+      segmentGroups: sortBy(trail?.segmentGroups || [], ['name'])
+    })),
   );
 
   constructor(private readonly apollo: Apollo,
