@@ -23,7 +23,7 @@ BEGIN
 	RAISE info 'inserting data to "trails" schema...';
 	INSERT INTO trails.trail (name, properties)
 	VALUES (OKT_NAME, jsonb_build_object(
-			'length', (SELECT round(SUM(ST_Length(geom::geography))::numeric, 2) FROM okt_import.track),
+			'length', (SELECT round((SUM(ST_Length(geom::geography))/1000)::numeric, 2) FROM okt_import.track),
 			'url', 'https://www.kektura.hu'
 		));
 
@@ -36,7 +36,7 @@ BEGIN
 		name,
 		okt_trail_id,
 		jsonb_build_object(
-			'length', round(ST_Length(geom::geography)::numeric, 2),
+			'length', round((ST_Length(geom::geography)/1000)::numeric, 2),
 			'url', 'https://www.kektura.hu/okt-szakasz/okt-' || LPAD(id::TEXT, 2, '0')
 		) AS properties
 	FROM okt_import.track;
@@ -47,7 +47,7 @@ BEGIN
 		start_point_name || ' - ' || end_point_name AS name,
 		sg.id AS trail_segment_group_id,
 		jsonb_build_object(
-			'length', round(ST_Length(t.geom::geography)::numeric, 2)
+			'length', round((ST_Length(t.geom::geography)/1000)::numeric, 2)
 		) AS properties,
 		ST_Simplify(t.geom, GEOM_SIMPLIFY_TOLERANCE) AS path
 	FROM okt_import.track_splitted t

@@ -6,6 +6,7 @@ import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { DividerModule } from 'primeng/divider';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TreeTableModule } from 'primeng/treetable';
 import {
   TrailDetailsComponent,
   TrailDetailsContainerComponent,
@@ -37,7 +38,8 @@ function provideApollo(httpLink: HttpLink) {
     ApolloModule,
     DividerModule,
     ProgressSpinnerModule,
-    TrailsBrowsingRoutingModule
+    TrailsBrowsingRoutingModule,
+    TreeTableModule
   ],
   providers: [
     // TODO: consider providing this in the consumer parent module

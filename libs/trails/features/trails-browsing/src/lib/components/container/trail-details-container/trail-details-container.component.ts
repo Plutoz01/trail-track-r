@@ -9,15 +9,16 @@ const GET_TRAIL = gql`
     findTrailById(id: $id) {
       id
       name
+      length
       segmentGroups {
         id
         name
         length
-#        segments {
-#          id
-#          name
-#          length
-#        }
+        segments {
+          id
+          name
+          length
+        }
       }
     }
   }
